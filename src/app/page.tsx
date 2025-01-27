@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500">
@@ -8,7 +6,7 @@ export default function Home() {
           News Archives Coming Soon
         </h1>
         <p className="mt-4 text-lg text-white">
-          We're working hard to bring you something amazing.
+          We are working hard to bring you something amazing.
         </p>
         <div className="mt-8">
           <a
