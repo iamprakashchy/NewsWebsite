@@ -1,200 +1,283 @@
 /* =======================================
    COLOR USAGE GUIDE:
-   =======================================
-   --background: Background color of the main content.
+   ---------------------------------------
+   --background: Primary background color.
    --foreground: Primary text color.
    --card: Background color for cards.
    --card-foreground: Text color on cards.
    --popover: Background color for popovers.
    --popover-foreground: Text color on popovers.
-   --primary: Primary color (e.g., buttons, links).
-   --primary-foreground: Text color on primary elements.
-   --secondary: Secondary color (e.g., secondary buttons, highlights).
-   --secondary-foreground: Text color on secondary elements.
-   --muted: Muted color (e.g., background for less important elements).
-   --muted-foreground: Text color on muted elements.
-   --accent: Accent color (e.g., icons, special highlights).
-   --accent-foreground: Text color on accent elements.
-   --destructive: Color for destructive actions (e.g., delete buttons).
-   --destructive-foreground: Text color on destructive elements.
-   --success: Color for success messages or actions.
-   --success-foreground: Text color on success elements.
-   --warning: Color for warning messages or actions.
-   --warning-foreground: Text color on warning elements.
-   --info: Color for informational messages or actions.
-   --info-foreground: Text color on informational elements.
-   --border: Color for borders and outlines.
+
+   --primary: Main brand color (headlines, main buttons).
+   --primary-foreground: Text color on primary backgrounds.
+   --secondary: Secondary brand color.
+   --secondary-foreground: Text color on secondary backgrounds.
+
+   --muted: Muted color (for subtle backgrounds).
+   --muted-foreground: Text color on muted backgrounds.
+   --accent: Accent color (for small highlights).
+   --accent-foreground: Text color on accent backgrounds.
+
+   --destructive: Color for destructive actions (e.g., delete).
+   --destructive-foreground: Text color on destructive backgrounds.
+   --success: Color for success messages.
+   --success-foreground: Text color on success backgrounds.
+   --warning: Color for warning messages.
+   --warning-foreground: Text color on warning backgrounds.
+   --info: Color for info messages.
+   --info-foreground: Text color on info backgrounds.
+
+   --border: Border and outline color.
    --input: Background color for input fields.
-   --ring: Color for focus rings.
+   --ring: Focus ring color.
    --radius: Border radius for rounded corners.
    --shadow: Color for shadows.
-   --font-family: Font family for text.
+
+   --font-family: Base font family.
+
+   --cat-politics, --cat-sports, etc.: Category-specific colors for a news site.
+   --cat-*-foreground: Text color used on those category backgrounds.
 */
 
 /* =======================================
    TAILWIND BASE IMPORTS
    ======================================= */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* =======================================
-         LIGHT MODE (DEFAULT)
-         ======================================= */
-:root {
-  /* BRAND & KEY COLORS */
-  --primary: 145, 100%, 28%;
-  /* #00913e (brand green) in HSL */
-  --primary-foreground: 0, 0%, 100%;
-
-  --secondary: 210, 7%, 24%;
-  /* #2a2e31 (brand dark) in HSL */
-  --secondary-foreground: 0, 0%, 100%;
-
-  /* Can be used as a gradient, if desired */
-  --active: 145deg, #00913e 0%, #00a344 100%;
-
-  /* BACKGROUND & FOREGROUND */
-  --background: 210, 16%, 98%;
-  --foreground: 210, 16%, 10%;
-
-  --card: 210, 16%, 96%;
-  --card-foreground: 210, 16%, 15%;
-
-  --popover: 210, 16%, 94%;
-  --popover-foreground: 210, 16%, 15%;
-
-  --sub-title: 210, 9%, 40%;
-
-  /* ACCENTS & STATE COLORS */
-  --tertiary: 44, 90%, 57%;
-  /* Gold-like accent */
-  --tertiary-foreground: 0, 0%, 15%;
-
-  --muted: 210, 16%, 85%;
-  --muted-foreground: 210, 16%, 30%;
-
-  --accent: 200, 85%, 50%;
-  /* Vibrant blue accent */
-  --accent-foreground: 0, 0%, 100%;
-
-  /* Alerts */
-  --success: 142, 76%, 40%;
-  --success-foreground: 0, 0%, 100%;
-  --warning: 38, 95%, 50%;
-  --warning-foreground: 0, 0%, 15%;
-  --destructive: 0, 80%, 60%;
-  --destructive-foreground: 0, 0%, 100%;
-  --info: 200, 85%, 50%;
-  --info-foreground: 0, 0%, 100%;
-  --notice: 210, 16%, 90%;
-  --notice-foreground: 210, 16%, 10%;
-
-  /* BORDERS & FORMS */
-  --border: 210, 16%, 80%;
-  --input: 210, 16%, 100%;
-  --ring: 145, 100%, 28%;
-  --radius: 0.5rem;
-  --shadow: 210, 16%, 70%;
-
-  --font-family: "Inter", system-ui;
-}
-
-/* =======================================
-         DARK MODE OVERRIDES
-         Uses Tailwind's 'class' strategy:
-         When <html class="dark"> or <body class="dark"> is active,
-         these values override the default root.
-         ======================================= */
-.dark {
-  --background: 210, 8%, 10%;
-  --foreground: 210, 16%, 92%;
-
-  --card: 210, 8%, 14%;
-  --card-foreground: 210, 16%, 92%;
-
-  --popover: 210, 8%, 12%;
-  --popover-foreground: 210, 16%, 92%;
-
-  --sub-title: 210, 9%, 60%;
-
-  --muted: 210, 8%, 20%;
-  --muted-foreground: 210, 8%, 70%;
-
-  --notice: 210, 8%, 18%;
-  --notice-foreground: 210, 16%, 92%;
-
-  --border: 210, 8%, 30%;
-  --input: 210, 8%, 25%;
-  --shadow: 210, 8%, 5%;
-
-  --font-family: "Inter", system-ui;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: var(--font-family);
-}
-
-/* =======================================
-         BASE STYLES (OPTIONAL)
-         ======================================= */
-@layer base {
-  /* Ensure the body uses our variable-based colors and fonts */
-  body {
-    font-family: var(--font-family);
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    margin: 0;
-  }
-}
-
-@layer components {
-  /* Navbar */
-  .nav-container {
-    @apply fixed w-full top-0 z-50 bg-background;
-  }
-
-  .nav-scrolled {
-    @apply flex w-full items-center justify-center shadow-sm bg-opacity-80 backdrop-blur-sm;
-    @apply bg-white bg-opacity-80 dark:bg-background dark:shadow-md dark:backdrop-blur-sm;
-  }
-
-  .nav-link {
-    @apply relative text-foreground/80 hover:text-foreground transition-colors duration-200;
-  }
-
-  .nav-link::after {
-    @apply content-[''] absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300;
-  }
-
-  .nav-link:hover::after {
-    @apply w-full;
-  }
-
-  .container {
-    @apply mx-auto;
-  }
-
-  .sub-menu {
-    @apply absolute top-[4.2rem] p-[15px] rounded-xl origin-[50%_-170px] z-50 border border-border/10 bg-background/95 backdrop-blur-xl shadow-lg shadow-foreground/10 dark:shadow-foreground/30;
-  }
-
-  .sub-menu a:hover {
-    @apply bg-gradient-to-r from-white/[0.07] to-transparent;
-  }
-
-  .sub-menu-item {
-    @apply flex items-center gap-4 p-3 rounded-lg hover:bg-foreground/5 transition-colors duration-200;
-  }
-
-  .sub-menu-icon {
-    @apply p-2 rounded-md bg-primary/10 text-primary;
-  }
-
-  .sub-menu-heading {
-    @apply relative text-sm font-medium tracking-wide uppercase before:absolute before:left-0 before:-bottom-2 before:w-8 before:h-[2px] before:bg-primary/60 after:absolute after:left-0 after:-bottom-2 after:w-16 after:h-[0.5px] after:bg-primary/30 text-foreground/80;
-  }
-}
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   
+   /* =======================================
+      LIGHT MODE (DEFAULT)
+      ======================================= */
+   :root {
+     /* ---------------------------------------
+        BRAND & KEY COLORS
+        --------------------------------------- */
+     /* Main brand color: Bold red, typical for news headlines */
+     --primary: 0, 84%, 45%; /* #D81B1B */
+     --primary-foreground: 0, 0%, 100%;
+   
+     /* Secondary: Dark gray for sub-headlines, etc. */
+     --secondary: 210, 7%, 24%; /* #2a2e31 */
+     --secondary-foreground: 0, 0%, 100%;
+   
+     /* Gradient (for hover or active states) */
+     --active: 0deg, #d81b1b 0%, #b91616 100%;
+   
+     /* ---------------------------------------
+        BACKGROUND & FOREGROUND
+        --------------------------------------- */
+     --background: 210, 16%, 98%;        /* near-white */
+     --foreground: 210, 16%, 10%;        /* dark gray text */
+   
+     --card: 210, 16%, 96%;              /* slightly off-white */
+     --card-foreground: 210, 16%, 15%;   /* darker gray text */
+   
+     --popover: 210, 16%, 94%;           /* off-white for popovers */
+     --popover-foreground: 210, 16%, 15%;
+   
+     /* For subtle headings or sub-titles */
+     --sub-title: 210, 9%, 40%;
+   
+     /* ---------------------------------------
+        MUTED / ACCENT / STATE COLORS
+        --------------------------------------- */
+     --muted: 210, 16%, 90%;             /* light gray */
+     --muted-foreground: 210, 16%, 35%;  /* slightly darker gray text */
+   
+     /* Accent color: a bright royal blue for small highlights */
+     --accent: 210, 76%, 49%; /* #2E8AFF */
+     --accent-foreground: 0, 0%, 100%;
+   
+     /* ---------------------------------------
+        ALERTS
+        --------------------------------------- */
+     --success: 142, 76%, 40%;          /* green for success */
+     --success-foreground: 0, 0%, 100%;
+     --warning: 38, 95%, 50%;           /* orange for warnings */
+     --warning-foreground: 0, 0%, 15%;
+     --destructive: 0, 80%, 60%;        /* bright red */
+     --destructive-foreground: 0, 0%, 100%;
+     --info: 210, 76%, 59%;             /* bright blue for info */
+     --info-foreground: 0, 0%, 100%;
+   
+     /* Notice background (a neutral color for mild notifications) */
+     --notice: 210, 16%, 90%;
+     --notice-foreground: 210, 16%, 10%;
+   
+     /* ---------------------------------------
+        CATEGORY COLORS (EXAMPLES)
+        ---------------------------------------
+        Adjust or add your own categories
+        for a robust news portal.
+     */
+     --cat-politics: 220, 75%, 55%;         /* #2E5EE2 (blue-ish) */
+     --cat-politics-foreground: 0, 0%, 100%;
+     
+     --cat-sports: 120, 100%, 30%;          /* #20A900 (vibrant green) */
+     --cat-sports-foreground: 0, 0%, 100%;
+   
+     --cat-entertainment: 330, 80%, 50%;    /* #E21483 (magenta/pink) */
+     --cat-entertainment-foreground: 0, 0%, 100%;
+   
+     --cat-tech: 25, 100%, 54%;            /* #FF7F11 (bright orange) */
+     --cat-tech-foreground: 0, 0%, 100%;
+   
+     --cat-lifestyle: 265, 85%, 66%;       /* #845EF7 (purple) */
+     --cat-lifestyle-foreground: 0, 0%, 100%;
+   
+     --cat-business: 180, 75%, 40%;        /* #17BEBB (teal) */
+     --cat-business-foreground: 0, 0%, 100%;
+   
+     /* ---------------------------------------
+        BORDERS & FORMS
+        --------------------------------------- */
+     --border: 210, 16%, 80%;
+     --input: 210, 16%, 100%;
+     --ring: 0, 84%, 45%; /* match primary color for focus */
+     --radius: 0.5rem;
+     --shadow: 210, 16%, 70%;
+   
+     /* ---------------------------------------
+        GLOBAL FONT
+        --------------------------------------- */
+     --font-family: "Inter", system-ui;
+   }
+   
+   /* =======================================
+      DARK MODE OVERRIDES
+      (Tailwind “class” strategy)
+      ======================================= */
+   .dark {
+     /* ---------------------------------------
+        BACKGROUND & FOREGROUND
+        --------------------------------------- */
+     --background: 210, 8%, 10%;
+     --foreground: 210, 16%, 92%;
+   
+     --card: 210, 8%, 14%;
+     --card-foreground: 210, 16%, 92%;
+   
+     --popover: 210, 8%, 12%;
+     --popover-foreground: 210, 16%, 92%;
+   
+     --sub-title: 210, 9%, 60%;
+   
+     /* ---------------------------------------
+        MUTED / NOTICE
+        --------------------------------------- */
+     --muted: 210, 8%, 20%;
+     --muted-foreground: 210, 8%, 70%;
+     --notice: 210, 8%, 18%;
+     --notice-foreground: 210, 16%, 92%;
+   
+     /* ---------------------------------------
+        CATEGORY COLORS (usually remain the same
+        or slightly more saturated for dark mode)
+     */
+     --cat-politics: 220, 75%, 60%;
+     --cat-politics-foreground: 0, 0%, 100%;
+   
+     --cat-sports: 120, 100%, 35%;
+     --cat-sports-foreground: 0, 0%, 100%;
+   
+     --cat-entertainment: 330, 80%, 55%;
+     --cat-entertainment-foreground: 0, 0%, 100%;
+   
+     --cat-tech: 25, 100%, 60%;
+     --cat-tech-foreground: 0, 0%, 100%;
+   
+     --cat-lifestyle: 265, 85%, 70%;
+     --cat-lifestyle-foreground: 0, 0%, 100%;
+   
+     --cat-business: 180, 75%, 45%;
+     --cat-business-foreground: 0, 0%, 100%;
+   
+     /* ---------------------------------------
+        BORDERS & FORMS
+        --------------------------------------- */
+     --border: 210, 8%, 30%;
+     --input: 210, 8%, 25%;
+     --shadow: 210, 8%, 5%;
+   
+     --font-family: "Inter", system-ui;
+   }
+   
+   /* =======================================
+      RESET & BASE STYLES
+      ======================================= */
+   * {
+     padding: 0;
+     margin: 0;
+     box-sizing: border-box;
+     font-family: var(--font-family);
+   }
+   
+   @layer base {
+     body {
+       font-family: var(--font-family);
+       background-color: hsl(var(--background));
+       color: hsl(var(--foreground));
+       margin: 0;
+     }
+   }
+   
+   /* =======================================
+      EXAMPLE COMPONENT STYLES
+      ======================================= */
+   @layer components {
+     /* ---------------------------------------
+        NAVBAR
+        --------------------------------------- */
+     .nav-container {
+       @apply fixed w-full top-0 z-50 bg-background mt-16 sm:mt-11;
+     }
+   
+     .nav-scrolled {
+       @apply flex w-full items-center justify-center shadow-sm bg-opacity-80 backdrop-blur-sm mt-0;
+       @apply bg-white bg-opacity-80 dark:bg-background dark:shadow-md dark:backdrop-blur-sm;
+     }
+   
+     .nav-link {
+       @apply relative text-foreground/80 hover:text-foreground transition-colors duration-200;
+     }
+   
+     .nav-link::after {
+       @apply content-[''] absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300;
+     }
+   
+     .nav-link:hover::after {
+       @apply w-full;
+     }
+   
+     .container {
+       @apply mx-auto px-2 sm:px-4;
+     }
+   
+     /* ---------------------------------------
+        SUB-MENU
+        --------------------------------------- */
+     .sub-menu {
+       @apply absolute top-[4.2rem] p-[15px] rounded-xl origin-[50%_-170px] z-50 border border-border/10;
+       @apply bg-background/95 backdrop-blur-xl shadow-lg shadow-foreground/10 dark:shadow-foreground/30;
+     }
+   
+     .sub-menu a:hover {
+       @apply bg-gradient-to-r from-white/[0.07] to-transparent;
+     }
+   
+     .sub-menu-item {
+       @apply flex items-center gap-4 p-3 rounded-lg hover:bg-foreground/5 transition-colors duration-200;
+     }
+   
+     .sub-menu-icon {
+       @apply p-2 rounded-md bg-primary/10 text-primary;
+     }
+   
+     .sub-menu-heading {
+       @apply relative text-sm font-medium tracking-wide uppercase text-foreground/80;
+       @apply before:absolute before:left-0 before:-bottom-2 before:w-8 before:h-[2px] before:bg-primary/60;
+       @apply after:absolute after:left-0 after:-bottom-2 after:w-16 after:h-[0.5px] after:bg-primary/30;
+     }
+   }
+   

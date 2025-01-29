@@ -13,30 +13,38 @@ import { IoSearch } from "react-icons/io5";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       setIsScrolled(window.scrollY > 20);
-    };
 
-    const throttledHandleScroll = throttle(handleScroll, 100);
-    window.addEventListener("scroll", throttledHandleScroll);
+      if (window.scrollY > lastScrollY && window.scrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(window.scrollY);
+    }, 100);
 
-    return () => window.removeEventListener("scroll", throttledHandleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
     <motion.header
       className={cn(
         "nav-container",
         isScrolled ? "nav-scrolled" : "bg-transparent",
-        "py-1"
+        "py-1 transition-transform duration-300 shadow-sm",
+        !isVisible && "-translate-y-full"
       )}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      <div className="container mx-auto px-2 sm:px-4">
+      <div className="container">
         <div className="flex h-16 items-center justify-between max-w-full">
           <Logo />
 

@@ -17,9 +17,16 @@ export default {
       "2xl": "1536px",
     },
     extend: {
+      /* ------------------------------------------
+         GLOBAL FONTS
+      ------------------------------------------ */
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui"],
+        sans: ["var(--font-family)", "system-ui"],
       },
+
+      /* ------------------------------------------
+         COLOR VARIABLES
+      ------------------------------------------ */
       colors: {
         // Base
         border: "hsl(var(--border))",
@@ -51,6 +58,7 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+
         // Popover & Card
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -74,12 +82,49 @@ export default {
           DEFAULT: "hsl(var(--info))",
           foreground: "hsl(var(--info-foreground))",
         },
+
+        /* --------------------------------------
+           NEWS / MAGAZINE CATEGORY COLORS
+           (Customize as you like)
+        -------------------------------------- */
+        catPolitics: {
+          DEFAULT: "hsl(var(--cat-politics))",
+          foreground: "hsl(var(--cat-politics-foreground))",
+        },
+        catSports: {
+          DEFAULT: "hsl(var(--cat-sports))",
+          foreground: "hsl(var(--cat-sports-foreground))",
+        },
+        catEntertainment: {
+          DEFAULT: "hsl(var(--cat-entertainment))",
+          foreground: "hsl(var(--cat-entertainment-foreground))",
+        },
+        catTech: {
+          DEFAULT: "hsl(var(--cat-tech))",
+          foreground: "hsl(var(--cat-tech-foreground))",
+        },
+        catLifestyle: {
+          DEFAULT: "hsl(var(--cat-lifestyle))",
+          foreground: "hsl(var(--cat-lifestyle-foreground))",
+        },
+        catBusiness: {
+          DEFAULT: "hsl(var(--cat-business))",
+          foreground: "hsl(var(--cat-business-foreground))",
+        },
       },
+
+      /* ------------------------------------------
+         BORDER RADIUS
+      ------------------------------------------ */
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+
+      /* ------------------------------------------
+         KEYFRAMES & ANIMATIONS
+      ------------------------------------------ */
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
