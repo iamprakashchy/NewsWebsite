@@ -281,3 +281,17 @@
      }
    }
    
+
+   @layer components {
+      .news-grid-item {
+        @apply transition-all duration-300;
+      }
+      
+      .news-grid-item:hover {
+        @apply shadow-xl;
+      }
+      
+      .news-category-badge {
+        @apply inline-block px-3 py-1 text-sm font-medium rounded-full;
+      }
+    }
