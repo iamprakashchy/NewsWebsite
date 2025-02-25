@@ -9,7 +9,7 @@ import { NAVIGATION_MENUS } from "./constants";
 import { throttle } from "lodash";
 import { cn } from "@/lib/utils";
 import DarkModeToggle from "../DarkModeToggle";
-import { IoSearch } from "react-icons/io5";
+import { SearchModal } from "../search-modal";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,7 +54,7 @@ export default function Navbar() {
             <MobMenu Menus={NAVIGATION_MENUS} />
             <div className="flex items-center gap-4">
               <div className="hidden sm:flex w-10 h-10  items-center justify-center rounded-full bg-background shadow-sm ">
-                <IoSearch className="size-4 sm:size-5" />
+                <SearchModal />
               </div>
               <DarkModeToggle />
             </div>
