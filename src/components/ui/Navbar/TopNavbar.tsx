@@ -11,6 +11,19 @@ import { cn } from "@/lib/utils";
 export default function TopNav() {
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [currentTime, setCurrentTime] = useState('');
+
+    useEffect(() => {
+        // Initial time set
+        setCurrentTime(new Date().toLocaleString());
+        
+        // Update time every second
+        const timer = setInterval(() => {
+            setCurrentTime(new Date().toLocaleString());
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
 
     useEffect(() => {
         const controlNavbar = () => {
@@ -71,7 +84,7 @@ export default function TopNav() {
                 <div className="flex items-center text-xs sm:text-sm space-x-4">
                     <div className="flex items-center">
                         <Clock size={16} className="mr-1 text-foreground/80" />
-                        <span>{new Date().toLocaleString()}</span>
+                        <span>{currentTime}</span>
                     </div>
                     {/* Social icons placeholder */}
                     <motion.div
