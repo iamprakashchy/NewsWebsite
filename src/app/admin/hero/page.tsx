@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { useState, useEffect, useCallback } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { IHeroSlide } from "@/components/Home/Hero/HeroSlides";
+import { IHeroSlide } from "@/components/Home/HeroSlide"; 
 import HeroSlideModal from "@/components/Admin/HeroSlideModal";
 import { toast } from "react-hot-toast";
 import Loader from "@/components/ui/Loader";

@@ -4,7 +4,6 @@ import 'swiper/css';
 import { Navigation, Autoplay } from 'swiper/modules';
 import Image from 'next/image'
 import Link from 'next/link'
-import { IoIosArrowBack, IoIosArrowDroprightCircle, IoIosArrowForward } from "react-icons/io";
 import ViewAllButton from '../ui/ViewAllButton';
 interface TrendingItem {
     id: number;

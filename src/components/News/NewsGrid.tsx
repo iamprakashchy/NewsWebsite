@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { IoIosArrowDroprightCircle } from "react-icons/io";
 import ViewAllButton from "../ui/ViewAllButton";
 
 export default function MustReadSection() {
@@ -44,11 +42,11 @@ export default function MustReadSection() {
                             </div>
                             <div className="p-6">
                                 <h3 className="text-lg font-semibold mb-2 line-clamp-2">
-                                    Ukraine's silence along southern front fuels counteroffensive
+                                    Ukraine&apos;s silence along southern front fuels counteroffensive
                                 </h3>
                                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                                    Miles of empty fields where you might expect a build-up of
-                                    armor. Tanks remain out of sight. But is Ukraine's new
+                                Miles of empty fields where you might expect a build-up of
+                                    armor. Tanks remain out of sight. But is Ukraine&apos;s new
                                     strategy paying off?...
                                 </p>
                                 <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
@@ -83,9 +81,9 @@ export default function MustReadSection() {
                                     Taylor Swift is sending a powerful message to women on the Eras Tour
                                 </h3>
                                 <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                                    My first stirrings of discontent for Taylor Swift's show in Las
+                                My first stirrings of discontent for Taylor Swift&apos;s show in Las
                                     Vegas hit after the infectious bass refuel from fan-favorite
-                                    "Cruel Summer;" the setlist roars...
+                                    &ldquo;Cruel Summer&rdquo;; the setlist roars...
                                 </p>
                                 <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
                                     <span className="text-red-500">Entertainment</span>
@@ -115,11 +113,11 @@ export default function MustReadSection() {
                             </div>
                             <div className="p-6">
                                 <h3 className="text-lg font-semibold mb-2 line-clamp-2">
-                                    Inside Qatar's "city of the future"
+                                    Inside Qatar&apos;s city of the future
                                 </h3>
                                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                                    An in-depth look at the architectural marvel rising from the
-                                    desert, set to redefine urban living...
+                                An in-depth look at the architectural marvel rising from the
+                                desert, set to redefine urban living...
                                 </p>
                                 <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                                     <span>BBC News</span>

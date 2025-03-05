@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { CustomArrowProps } from "react-slick";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";  
+import { IHeroSlide } from "./HeroSlide";
 
 /**
  * Custom arrow components for the slider
@@ -47,7 +48,7 @@ function NextArrow({ onClick }: CustomArrowProps) {
  * Displays a responsive hero section with image slider
  */
 export default function Hero() {
-  const [slides, setSlides] = useState<IHeroSlide[]>([]);
+  const [slides, setSlides] = useState<IHeroSlide[]>([]); 
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch slides data

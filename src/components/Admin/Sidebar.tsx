@@ -31,7 +31,7 @@ const sidebarItems: SidebarItem[] = [
         icon: HomeIcon,
         submenu: [
             { title: "Hero Section", href: "/admin/hero" },
-            { title: "Features", href: "/admin/home/features" },
+            { title: "Scrap Data", href: "/admin/features" },
         ],
     },
 
@@ -129,7 +129,7 @@ export default function Sidebar() {
                                                                 <div className="w-2 h-2 rounded-full bg-gray-400 mr-3 relative">
                                                                     <div className="absolute -left-[3px] -top-[3px] w-3 h-3 rounded-full border-2 border-gray-300 dark:border-gray-600"></div>
                                                                 </div>
-                                                                <span>{subitem.title}</span>
+                                                                <span className="text-nowrap">{subitem.title}</span>
                                                             </div>
                                                         </Link>
                                                     </li>

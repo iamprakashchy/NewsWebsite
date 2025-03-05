@@ -28,12 +28,12 @@ export default function Home() {
               <div className="p-4">
                 <div className="mb-2 text-sm font-medium text-blue-600">Prime Ministers</div>
                 <h3 className="mb-2 text-xl font-bold text-gray-900">
-                  Narendra Modi US visit Highlights: PM Modi departs for India after 'productive and substantive' talks
-                  with Trump
+                Narendra Modi US visit Highlights: PM Modi departs for India after &apos;productive and substantive&apos; talks
+                with Trump
                 </h3>
                 <p className="text-gray-700">
-                  US President Donald Trump on Thursday welcomed Prime Minister Narendra Modi to the White House in
-                  Washington, D.C., with a firm handshake and a warm hug, referring to him as a "great friend" for many
+                US President Donald Trump on Thursday welcomed Prime Minister Narendra Modi to the White House in
+                  Washington, D.C., with a firm handshake and a warm hug, referring to him as a &ldquo;great friend&rdquo; for many
                   years...
                 </p>
                 <div className="flex items-center justify-between mt-4">

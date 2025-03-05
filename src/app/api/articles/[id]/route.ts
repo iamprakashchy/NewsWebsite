@@ -4,10 +4,10 @@ import { ObjectId } from "mongodb";
 
 export async function GET(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const { id } = params;
+        const { id } = await Promise.resolve(params);
 
         // Check if the ID is a valid MongoDB ObjectId
         if (!ObjectId.isValid(id)) {
@@ -35,7 +35,10 @@ export async function GET(
     } catch (error) {
         console.error("Error fetching article:", error);
         return NextResponse.json(
-            { error: "Failed to fetch article" },
+            { 
+                error: "Failed to fetch article",
+                details: process.env.NODE_ENV === 'development' ? error : undefined
+            },
             { status: 500 }
         );
     }
