@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 // Import the CustomArrowProps type from react-slick
 import { CustomArrowProps } from "react-slick";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/Button";  
+import { Button } from "@/components/ui/button";
 import { IHeroSlide } from "./HeroSlide";
 
 /**
@@ -48,7 +48,7 @@ function NextArrow({ onClick }: CustomArrowProps) {
  * Displays a responsive hero section with image slider
  */
 export default function Hero() {
-  const [slides, setSlides] = useState<IHeroSlide[]>([]); 
+  const [slides, setSlides] = useState<IHeroSlide[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch slides data
@@ -156,28 +156,34 @@ function SlideContent({ slide }: { slide: IHeroSlide }) {
         className="absolute inset-0 bg-center bg-cover bg-no-repeat transition-opacity duration-500"
         style={{ backgroundImage: `url(${slide.imageUrl})` }}
       />
-      
+
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/30" />
 
       {/* Content */}
       <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 text-center text-white md:px-8">
-        <h2 className={cn(
-          "mb-2 text-3xl font-bold uppercase tracking-wider md:text-5xl",
-          "animate-fadeIn"
-        )}>
+        <h2
+          className={cn(
+            "mb-2 text-3xl font-bold uppercase tracking-wider md:text-5xl",
+            "animate-fadeIn"
+          )}
+        >
           {slide.title}
         </h2>
-        <p className={cn(
-          "mb-2 text-lg font-semibold text-primary",
-          "animate-fadeIn animation-delay-200"
-        )}>
+        <p
+          className={cn(
+            "mb-2 text-lg font-semibold text-primary",
+            "animate-fadeIn animation-delay-200"
+          )}
+        >
           {slide.tagline}
         </p>
-        <p className={cn(
-          "mx-auto mb-6 max-w-2xl text-base md:text-lg opacity-90",
-          "animate-fadeIn animation-delay-400"
-        )}>
+        <p
+          className={cn(
+            "mx-auto mb-6 max-w-2xl text-base md:text-lg opacity-90",
+            "animate-fadeIn animation-delay-400"
+          )}
+        >
           {slide.description}
         </p>
 
@@ -185,7 +191,7 @@ function SlideContent({ slide }: { slide: IHeroSlide }) {
           variant="primary"
           size="lg"
           className="animate-fadeIn animation-delay-600"
-          onClick={() => window.location.href = slide.ctaLink}
+          onClick={() => (window.location.href = slide.ctaLink)}
         >
           {slide.ctaLabel}
         </Button>

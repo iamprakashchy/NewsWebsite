@@ -1,13 +1,19 @@
-"use client"
+"use client";
 
-import { Search } from "lucide-react"
-import { useState } from "react"
-import { Button } from "@/components/ui/Button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/Dialog"
-import { Input } from "@/components/ui/Input"
+import { Search } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/Dialog";
+import { Input } from "@/components/ui/Input";
 
 export function SearchModal() {
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("");
 
   return (
     <Dialog>
@@ -22,10 +28,16 @@ export function SearchModal() {
           <DialogTitle>Search</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <Input placeholder="Search articles..." value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Input
+            placeholder="Search articles..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
           {search && (
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">Search results for &quot;{search}&quot;</p>
+              <p className="text-sm text-muted-foreground">
+                Search results for &quot;{search}&quot;
+              </p>
               {/* Add search results here */}
               <div className="text-sm">No results found.</div>
             </div>
@@ -33,6 +45,5 @@ export function SearchModal() {
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
-

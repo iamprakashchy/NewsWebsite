@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { toast } from "react-hot-toast";
@@ -34,23 +34,23 @@ export default function ScrapConfigPage() {
       const response = await fetch("/api/scrap-config");
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
-      
+
       // Ensure each config has keywords array, even if empty
       const sanitizedConfigs = data.map((config: ScrapConfig) => ({
         ...config,
         keywords: config.keywords || [],
       }));
-      
+
       setConfigs(sanitizedConfigs);
     } catch (error) {
-      console.error('Error fetching configs:', error);
+      console.error("Error fetching configs:", error);
       toast.error("Failed to fetch configurations");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleCreateConfig = async (configData: Omit<ScrapConfig, '_id'>) => {
+  const handleCreateConfig = async (configData: Omit<ScrapConfig, "_id">) => {
     try {
       const response = await fetch("/api/scrap-config", {
         method: "POST",
@@ -64,7 +64,7 @@ export default function ScrapConfigPage() {
       toast.success("Configuration created successfully");
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error creating config:', error);
+      console.error("Error creating config:", error);
       toast.error("Failed to create configuration");
     }
   };
@@ -79,13 +79,13 @@ export default function ScrapConfigPage() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
 
-      setConfigs(configs.map(config =>
-        config._id === configData._id ? data : config
-      ));
+      setConfigs(
+        configs.map((config) => (config._id === configData._id ? data : config))
+      );
       toast.success("Configuration updated successfully");
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error updating config:', error);
+      console.error("Error updating config:", error);
       toast.error("Failed to update configuration");
     }
   };
@@ -99,14 +99,13 @@ export default function ScrapConfigPage() {
       });
       if (!response.ok) throw new Error("Failed to delete");
 
-      setConfigs(configs.filter(config => config._id !== id));
+      setConfigs(configs.filter((config) => config._id !== id));
       toast.success("Configuration deleted successfully");
     } catch (error) {
-      console.error('Error deleting config:', error);
+      console.error("Error deleting config:", error);
       toast.error("Failed to delete configuration");
     }
   };
-
 
   if (isLoading) {
     return (
@@ -161,14 +160,15 @@ export default function ScrapConfigPage() {
             </div>
             <div className="space-y-2">
               <div className="flex flex-wrap gap-2">
-                {Array.isArray(config.keywords) && config.keywords.map((keyword, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-full"
-                  >
-                    {keyword}
-                  </span>
-                ))}
+                {Array.isArray(config.keywords) &&
+                  config.keywords.map((keyword, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-full"
+                    >
+                      {keyword}
+                    </span>
+                  ))}
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-sm">Status:</span>
