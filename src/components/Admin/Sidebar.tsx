@@ -9,6 +9,7 @@ import {
     HomeIcon,
     ChevronFirst,
     ChevronLast,
+    Database,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -33,6 +34,11 @@ const sidebarItems: SidebarItem[] = [
             { title: "Hero Section", href: "/admin/hero" },
             { title: "Scrap Data", href: "/admin/features" },
         ],
+    },
+    {
+        title: "Content",
+        href: "/admin/content",
+        icon: Database, 
     },
 
 ];
