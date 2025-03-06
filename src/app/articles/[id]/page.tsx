@@ -1,15 +1,23 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import Image from 'next/image';
-import { Share2, Bookmark, Eye, Clock, Calendar, User, Tag } from 'lucide-react';
-import RelatedArticles from '@/components/Articles/RelatedArticles';
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import Image from "next/image";
+import {
+  Share2,
+  Bookmark,
+  Eye,
+  Clock,
+  Calendar,
+  User,
+  Tag,
+} from "lucide-react";
+import RelatedArticles from "@/components/Articles/RelatedArticles";
 // import ArticleActions from '@/components/Articles/ArticleActions=';
-import SocialShare from '@/components/Articles/SocialShare';
-import AdPlaceholder from '@/components/Ads/AdPlaceholder';
-import ArticleContent from '@/components/Articles/ArticleContent';
-import { Skeleton } from '@/components/ui/skeleton';
+import SocialShare from "@/components/Articles/SocialShare";
+import AdPlaceholder from "@/components/Ads/AdPlaceholder";
+import ArticleContent from "@/components/Articles/ArticleContent";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Article {
   _id: string;
@@ -36,19 +44,21 @@ export default function ArticlePage() {
         if (!id) {
           throw new Error("Article ID is required");
         }
-        
+
         const response = await fetch(`/api/articles/${id}`);
         const data = await response.json();
-        
+
         if (!response.ok) {
           throw new Error(data.error || "Failed to fetch article");
         }
-        
+
         setArticle(data);
         setError(null);
       } catch (error) {
-        console.error('Error fetching article:', error);
-        setError(error instanceof Error ? error.message : "Failed to fetch article");
+        console.error("Error fetching article:", error);
+        setError(
+          error instanceof Error ? error.message : "Failed to fetch article"
+        );
       } finally {
         setIsLoading(false);
       }
@@ -85,7 +95,9 @@ export default function ArticlePage() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center space-y-4">
           <h1 className="text-2xl font-bold">Article Not Found</h1>
-          <p className="text-muted-foreground">The requested article could not be found.</p>
+          <p className="text-muted-foreground">
+            The requested article could not be found.
+          </p>
         </div>
       </div>
     );
@@ -106,7 +118,7 @@ export default function ArticlePage() {
                 <Tag className="w-4 h-4" />
                 <span>{article.category}</span>
               </div>
-              
+
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
                 {article.title}
               </h1>
@@ -114,19 +126,21 @@ export default function ArticlePage() {
               <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
                   <User className="w-4 h-4" />
-                  <span>{article.author || 'Anonymous'}</span>
+                  <span>{article.author || "Anonymous"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  <time>{new Date(article.published_date).toLocaleDateString()}</time>
+                  <time>
+                    {new Date(article.published_date).toLocaleDateString()}
+                  </time>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  <span>{article.readTime || '5'} min read</span>
+                  <span>{article.readTime || "5"} min read</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Eye className="w-4 h-4" />
-                  <span>{article.views || '1,234'} views</span>
+                  <span>{article.views || "1,234"} views</span>
                 </div>
               </div>
 
@@ -149,10 +163,16 @@ export default function ArticlePage() {
             {/* <ArticleActions articleId={article._id} /> */}
 
             {/* Inline Ad */}
-            <AdPlaceholder className="w-full h-32 my-8" location="article_inline" />
+            <AdPlaceholder
+              className="w-full h-32 my-8"
+              location="article_inline"
+            />
 
             {/* Related Articles */}
-            <RelatedArticles category={article.category} currentId={article._id} />
+            <RelatedArticles
+              category={article.category}
+              currentId={article._id}
+            />
           </div>
 
           {/* Sidebar */}
@@ -163,7 +183,10 @@ export default function ArticlePage() {
               <SocialShare article={article} />
 
               {/* Sidebar Ad */}
-              <AdPlaceholder className="w-full h-64" location="article_sidebar" />
+              <AdPlaceholder
+                className="w-full h-64"
+                location="article_sidebar"
+              />
 
               {/* Newsletter Signup */}
               {/* <NewsletterSignup /> */}
@@ -176,4 +199,4 @@ export default function ArticlePage() {
       </article>
     </div>
   );
-} 
+}
