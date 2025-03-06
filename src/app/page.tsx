@@ -5,12 +5,10 @@ import { Card, CardContent } from "@/components/ui/Card";
 import Image from "next/image";
 import { CategorySection } from "@/components/ui/category-section";
 import { NewsCard } from "@/components/ui/news-card";
-import Test from "@/components/Test";
 export default function Home() {
   return (
     <section>
       <Hero />
-      <Test />
       <TrendingArea />
       <StorySection />
       <div className="min-h-screen bg-background">

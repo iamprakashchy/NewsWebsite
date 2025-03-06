@@ -4,12 +4,12 @@ import { ObjectId } from "mongodb";
 
 export async function GET(
     request: Request,
-    { params }: { params: Promise<{ id: string }> }
+    { params }: { params: { id: string } }
 ) {
     try {
-        const { id } = await Promise.resolve(params);
+        const { id } = params;
 
-        // Check if the ID is a valid MongoDB ObjectId
+        // Validate ObjectId format
         if (!ObjectId.isValid(id)) {
             return NextResponse.json(
                 { error: "Invalid article ID format" },
@@ -31,7 +31,11 @@ export async function GET(
             );
         }
 
-        return NextResponse.json(article);
+        // Set cache control headers for better performance
+        const response = NextResponse.json(article);
+        response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=30');
+        
+        return response;
     } catch (error) {
         console.error("Error fetching article:", error);
         return NextResponse.json(
