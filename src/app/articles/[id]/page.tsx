@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import {
-  Share2,
-  Bookmark,
   Eye,
   Clock,
   Calendar,
@@ -13,11 +11,13 @@ import {
   Tag,
 } from "lucide-react";
 import RelatedArticles from "@/components/Articles/RelatedArticles";
-// import ArticleActions from '@/components/Articles/ArticleActions=';
+import ArticleActions from '@/components/Articles/ArticleActions';
 import SocialShare from "@/components/Articles/SocialShare";
 import AdPlaceholder from "@/components/Ads/AdPlaceholder";
 import ArticleContent from "@/components/Articles/ArticleContent";
 import { Skeleton } from "@/components/ui/skeleton";
+import NewsletterSignup from "@/components/Articles/NewsletterSignup";
+import TrendingArticles from "@/components/Articles/TrendingArticles";
 
 interface Article {
   _id: string;
@@ -30,7 +30,35 @@ interface Article {
   author?: string;
   readTime?: number;
   views?: number;
+  slug?: string;
+  excerpt?: string;
+  tags?: string[];
 }
+
+const ArticleSkeleton = () => (
+  <div className="container mx-auto px-4 py-8">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="lg:col-span-8 space-y-6">
+        <Skeleton className="h-6 w-24" />
+        <Skeleton className="h-12 w-3/4" />
+        <div className="flex gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} className="h-4 w-24" />
+          ))}
+        </div>
+        <Skeleton className="aspect-video w-full rounded-lg" />
+        <div className="space-y-4">
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} className="h-4 w-full" />
+          ))}
+        </div>
+      </div>
+      <div className="lg:col-span-4">
+        <Skeleton className="h-64 w-full rounded-lg" />
+      </div>
+    </div>
+  </div>
+);
 
 export default function ArticlePage() {
   const { id } = useParams();
@@ -45,7 +73,12 @@ export default function ArticlePage() {
           throw new Error("Article ID is required");
         }
 
-        const response = await fetch(`/api/articles/${id}`);
+        const response = await fetch(`/api/articles/${id}`, {
+          cache: "no-store",
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch article');
+        }
         const data = await response.json();
 
         if (!response.ok) {
@@ -68,15 +101,7 @@ export default function ArticlePage() {
   }, [id]);
 
   if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-200 rounded w-3/4"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-          <div className="h-64 bg-gray-200 rounded"></div>
-        </div>
-      </div>
-    );
+    return <ArticleSkeleton />;
   }
 
   if (error) {
@@ -106,7 +131,11 @@ export default function ArticlePage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Top Ad Banner */}
-      <AdPlaceholder className="w-full h-24 mb-6" location="article_top" />
+      <AdPlaceholder
+        className="w-full mb-6 mx-auto max-w-7xl"
+        location="article_top"
+        height="96px"
+      />
 
       <article className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -116,42 +145,45 @@ export default function ArticlePage() {
             <header className="mb-8">
               <div className="flex items-center gap-2 text-sm text-primary mb-4">
                 <Tag className="w-4 h-4" />
-                <span>{article.category}</span>
+                <span className="font-jost text-sm hover:text-primary/80 transition-colors">
+                  {article.category}
+                </span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-inter mb-6 tracking-tight">
                 {article.title}
               </h1>
 
               <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
                 <div className="flex items-center gap-2">
                   <User className="w-4 h-4" />
-                  <span>{article.author || "Anonymous"}</span>
+                  <span>{article.author || "News Archive"}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
-                  <time>
+                  <time className="font-inter text-sm">
                     {new Date(article.published_date).toLocaleDateString()}
                   </time>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
-                  <span>{article.readTime || "5"} min read</span>
+                  <span className="font-inter text-sm">{article.readTime || "5"} min read</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Eye className="w-4 h-4" />
-                  <span>{article.views || "1,234"} views</span>
+                  <span className="font-inter text-sm">{article.views || "1,234"} views</span>
                 </div>
               </div>
 
               {/* Featured Image */}
-              <div className="relative aspect-video w-full rounded-lg overflow-hidden mb-8">
+              <div className="relative aspect-video w-full rounded-lg overflow-hidden mb-8 shadow-lg">
                 <Image
                   src={article.image}
                   alt={article.title}
                   fill
                   className="object-cover"
                   priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 50vw"
                 />
               </div>
             </header>
@@ -160,12 +192,18 @@ export default function ArticlePage() {
             <ArticleContent content={article.content} />
 
             {/* Article Actions */}
-            {/* <ArticleActions articleId={article._id} /> */}
+            <ArticleActions
+              articleId={article._id}
+              title={article.title}
+              slug={article.slug}
+              className="mt-8"
+            />
 
             {/* Inline Ad */}
             <AdPlaceholder
-              className="w-full h-32 my-8"
+              className="w-full my-8"
               location="article_inline"
+              height="128px"
             />
 
             {/* Related Articles */}
@@ -184,15 +222,16 @@ export default function ArticlePage() {
 
               {/* Sidebar Ad */}
               <AdPlaceholder
-                className="w-full h-64"
+                className="w-full"
                 location="article_sidebar"
+                height="400px"
               />
 
               {/* Newsletter Signup */}
-              {/* <NewsletterSignup /> */}
+              <NewsletterSignup />
 
               {/* Trending Articles */}
-              {/* <TrendingArticles /> */}
+              <TrendingArticles articles={[]} />
             </div>
           </aside>
         </div>

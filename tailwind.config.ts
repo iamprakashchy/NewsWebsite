@@ -21,7 +21,9 @@ export default {
          GLOBAL FONTS
       ------------------------------------------ */
       fontFamily: {
-        sans: ["var(--font-family)", "system-ui"],
+        inter: ['var(--font-inter)'],
+        jost: ['var(--font-jost)'],
+        poppins: ['var(--font-poppins)'],
       },
 
       /* ------------------------------------------

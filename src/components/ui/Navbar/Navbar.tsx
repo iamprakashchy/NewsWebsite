@@ -67,7 +67,9 @@ export default function Navbar() {
 
 const Logo = () => (
   <Link href="/" className="block text-2xl font-bold">
-    News Archive
+    <span className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+      News Archive
+    </span>
   </Link>
 );
 

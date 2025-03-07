@@ -6,7 +6,7 @@ import Image from "next/image";
 import { CategorySection } from "@/components/ui/category-section";
 import { NewsCard } from "@/components/ui/news-card";
 export default function Home() {
-  return (
+  return (  
     <section>
       <Hero />
       <TrendingArea />

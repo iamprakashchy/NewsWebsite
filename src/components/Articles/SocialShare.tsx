@@ -1,6 +1,6 @@
 "use client";
 
-import { Share2, Twitter, Facebook, Link } from 'lucide-react';
+import { Twitter, Facebook, Link } from 'lucide-react';
 import { LinkedinIcon } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
@@ -19,6 +19,7 @@ export default function SocialShare({ article }: SocialShareProps) {
       await navigator.clipboard.writeText(shareUrl);
       toast.success('Link copied to clipboard!');
     } catch (err) {
+      console.error("Failed to copy link", err);
       toast.error('Failed to copy link');
     }
   };

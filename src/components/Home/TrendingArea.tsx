@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ViewAllButton from "../ui/ViewAllButton";
 import { useEffect, useState } from "react";
-import Loader from "../ui/Loader";
+
 interface TrendingItem {
   _id: string;
   title: string;
@@ -25,10 +25,9 @@ const TrendingArea = () => {
     const fetchArticles = async () => {
       try {
         const response = await fetch("/api/articles", {
-          next: {
-            revalidate: 300,
-          },
+          cache: "no-store",
         });
+        if (!response.ok) throw new Error("Failed to fetch articles");
         const data = await response.json();
         setArticles(data);
       } catch (error) {
@@ -67,7 +66,10 @@ const TrendingArea = () => {
     <section className="py-8">
       <div className="container">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">Trending News</h2>
+          <div className="relative">
+            <h2 className="text-2xl font-bold">Trending News</h2>
+            <div className="absolute -bottom-3 left-0 w-1/4 h-1 bg-primary rounded-full"></div>
+          </div>
           <div className="flex items-center gap-4">
             <ViewAllButton
               href="/stories"

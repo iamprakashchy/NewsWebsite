@@ -1,10 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { IHeroSlide } from "../Home/HeroSlide";
 import { X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
+
+interface IHeroSlide {
+  _id: string;
+  title: string;
+  tagline: string;
+  description: string;
+  imageUrl: string;
+  ctaLabel: string;
+  ctaLink: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 interface HeroSlideModalProps {
   isOpen: boolean;
@@ -27,6 +38,9 @@ export default function HeroSlideModal({
       imageUrl: "",
       ctaLabel: "",
       ctaLink: "",
+      _id: "",
+      createdAt: "",
+      updatedAt: "",
     }
   );
 
@@ -41,6 +55,9 @@ export default function HeroSlideModal({
         imageUrl: "",
         ctaLabel: "",
         ctaLink: "",
+        _id: "",
+        createdAt: "",
+        updatedAt: "",
       });
     }
   }, [initialData, isOpen]);

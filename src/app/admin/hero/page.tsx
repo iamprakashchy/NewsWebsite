@@ -4,21 +4,27 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect, useCallback } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { IHeroSlide } from "@/components/Home/HeroSlide";
 import HeroSlideModal from "@/components/Admin/HeroSlideModal";
 import { toast } from "react-hot-toast";
 import Loader from "@/components/ui/Loader";
 
-// Extended type for slide with MongoDB ID
-type HeroSlideWithId = IHeroSlide & { _id: string };
+interface IHeroSlide {
+  _id: string;
+  title: string;
+  tagline: string;
+  description: string;
+  imageUrl: string;
+  ctaLabel: string;
+  ctaLink: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function HeroManagement() {
   // State management with proper typing
-  const [slides, setSlides] = useState<HeroSlideWithId[]>([]);
+  const [slides, setSlides] = useState<IHeroSlide[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingSlide, setEditingSlide] = useState<HeroSlideWithId | null>(
-    null
-  );
+  const [editingSlide, setEditingSlide] = useState<IHeroSlide | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Memoized fetch function to prevent unnecessary recreations
