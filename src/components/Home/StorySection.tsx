@@ -156,20 +156,21 @@ const StorySection = () => {
     }, []);
 
     return (
-        <section className="py-8 bg-gradient-to-r from-gray-50 to-white">
+        <section className="py-8 bg-gradient-to-r from-gray-50 to-white overflow-hidden">
             <div className="container relative">
                 <div className="flex items-center justify-between mb-6">
                     <div className="space-y-1">
-                        <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">
+                        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
                             Featured Stories
                         </h2>
-                        <p className="text-gray-500 text-sm">Discover trending topics and latest updates</p>
+                        <p className="text-gray-500 text-xs sm:text-sm">Discover trending topics and latest updates</p>
                     </div>
                     <ViewAllButton
                         href="/stories"
                         text="View All"
                         variant="default"
                         size="md"
+                        className="whitespace-nowrap"
                     />
                 </div>
 
@@ -177,19 +178,19 @@ const StorySection = () => {
                 {showLeftScroll && (
                     <button
                         onClick={() => scroll('left')}
-                        className="absolute -left-5 top-[58%] transform -translate-y-1/2 z-10 hover:bg-white transition-all"
+                        className="absolute left-0 sm:-left-5 top-[60%] sm:top-[58%] transform -translate-y-1/2 z-10 transition-all"
                         aria-label="Scroll left"
                     >
-                        <IoIosArrowBack className="size-12 text-gray-700" />
+                        <IoIosArrowBack className="size-10 sm:size-12 text-primary" />
                     </button>
                 )}
                 {showRightScroll && (
                     <button
                         onClick={() => scroll('right')}
-                        className="absolute -right-5 top-[58%] transform -translate-y-1/2 z-10 hover:bg-white transition-all"
+                        className="absolute right-0 sm:-right-5 top-[60%] sm:top-[58%] transform -translate-y-1/2 z-10 transition-all"
                         aria-label="Scroll right"
                     >
-                        <IoIosArrowForward className="size-12 text-gray-700" />
+                        <IoIosArrowForward className="size-10 sm:size-12 text-primary" />
                     </button>
                 )}
 
@@ -208,7 +209,7 @@ const StorySection = () => {
                             href={story.link}
                             className="group flex flex-col items-center min-w-[100px] first:ml-2 last:mr-2"
                         >
-                            <div className="relative w-[100px] h-[100px] rounded-full overflow-hidden">
+                            <div className="relative w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] rounded-full overflow-hidden">
                                 <div className="absolute inset-0 border-2 border-gray-100 rounded-full group-hover:border-red-500 group-hover:scale-110 transition-all duration-300" />
                                 <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/60 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <Image

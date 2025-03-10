@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { IoArrowBackOutline, IoArrowForwardOutline } from "react-icons/io5"
+import { IoArrowForwardOutline } from "react-icons/io5"
 
 interface IHeroSlide {
   _id: string;
@@ -97,19 +97,13 @@ export default function HeroSection() {
     arrows: false,
     responsive: [
       {
-        breakpoint: 1280,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 1024,
+        breakpoint: 1200,
         settings: {
           slidesToShow: 2,
         },
       },
       {
-        breakpoint: 640,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
         },
@@ -118,7 +112,7 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative w-full h-[75vh] md:h-[70vh] lg:h-[75vh] bg-background overflow-hidden">
+    <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh] bg-background overflow-hidden">
       {/* Main Content */}
       <div className="relative h-full">
         <Slider
@@ -126,8 +120,8 @@ export default function HeroSection() {
           {...mainSliderSettings}
           className="h-full"
         >
-          {slides.map((slide) => ( 
-            <div key={slide._id} className="relative h-[75vh]">   
+          {slides.map((slide) => (
+            <div key={slide._id} className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh]">
               {/* Background Image */}
               <div className="absolute inset-0">
                 <Image
@@ -135,34 +129,34 @@ export default function HeroSection() {
                   alt={slide.title}
                   fill
                   priority
-                  className="object-cover"
+                  className="object-cover object-top"
                   sizes="100vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/80 to-transparent" />
               </div>
 
               {/* Content */}
               <div className="relative h-full container mx-auto px-4 lg:px-6">
-                <div className="flex flex-col justify-center h-full max-w-2xl pt-20">
+                <div className="flex flex-col justify-center h-full max-w-2xl py-4">
                   {/* Category Tag */}
-                  <span className="inline-block w-fit rounded-sm px-4 py-1.5 mb-6 bg-primary text-primary-foreground text-sm font-medium uppercase tracking-wider">
+                  <span className="inline-block w-fit rounded-sm px-2 py-1 mb-3 bg-primary text-primary-foreground text-xs md:text-sm font-medium uppercase tracking-wider">
                     {slide.tagline}
                   </span>
 
                   {/* Title */}
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
                     {slide.title}
                   </h1>
 
                   {/* Description */}
-                  <p className="text-lg text-white/90 mb-8 line-clamp-3 font-poppins">
+                  <p className="text-base text-white/90 mb-4 line-clamp-3 font-poppins">
                     {slide.description}
                   </p>
 
                   {/* CTA Button */}
                   <Button
                     variant={'primary'}
-                    size="xl"
+                    size="lg"
                     className="w-fit"
                     rightIcon={<IoArrowForwardOutline />}
                   >
@@ -177,7 +171,7 @@ export default function HeroSection() {
         </Slider>
 
         {/* Thumbnail Slider Container */}
-        <div className="absolute bottom-0 right-0 w-full md:max-w-2xl lg:max-w-4xl z-10 shadow-sm backdrop-blur-sm rounded-tl-lg pl-4 md:pl-12 pr-16 md:pr-28 
+        <div className="hidden sm:block absolute -bottom-4 md:-bottom-8 right-0 w-full max-w-64 md:max-w-96 lg:max-w-lg xl:max-w-2xl z-10 shadow-sm backdrop-blur-sm rounded-tl-lg px-4
         py-2 bg-gradient-to-r from-black/20 via-black/10 to-transparent">
           <Slider
             ref={(slider) => setThumbnailSlider(slider)}
@@ -236,7 +230,7 @@ export default function HeroSection() {
           </Slider>
 
           {/* Navigation Arrows */}
-          <div className="absolute right-4 md:right-16 top-16 -translate-y-1/2 flex gap-2 md:flex-col md:gap-1">
+          {/* <div className="absolute right-4 md:right-16 top-16 -translate-y-1/2 flex gap-2 md:flex-col md:gap-1">
             <button
               onClick={() => thumbnailSlider?.slickPrev()}
               className="p-1 bg-background hover:bg-background/90 rounded-sm transition-colors"
@@ -251,7 +245,7 @@ export default function HeroSection() {
               <span className="sr-only">Next</span>
               <IoArrowForwardOutline className="w-4 h-4 md:w-6 md:h-6 text-primary" />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

@@ -84,6 +84,7 @@ const TrendingArea = () => {
           modules={[Navigation, Autoplay]}
           spaceBetween={20}
           slidesPerView={1}
+          loop={true}
           navigation={{
             prevEl: ".swiper-button-prev",
             nextEl: ".swiper-button-next",
@@ -91,6 +92,7 @@ const TrendingArea = () => {
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true
           }}
           breakpoints={{
             640: {
@@ -104,7 +106,7 @@ const TrendingArea = () => {
         >
           {articles.map((article) => (
             <SwiperSlide key={article._id}>
-              <article className="group border border-gray-200 p-4 rounded-lg overflow-hidden">
+              <article className="group border border-gray-200 p-4 rounded-lg overflow-hidden h-[450px] flex flex-col">
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg mb-4">
                   <Link href={`/articles/${article._id}`}>
                     <Image
@@ -119,7 +121,7 @@ const TrendingArea = () => {
                     {article.category}
                   </span>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 text-sm text-gray-500">
                     <span>{article.category}</span>
                     <span>•</span>
@@ -127,7 +129,7 @@ const TrendingArea = () => {
                       {new Date(article.published_date).toLocaleDateString()}
                     </time>
                   </div>
-                  <h3 className="text-xl font-bold hover:text-primary transition-colors line-clamp-2">
+                  <h3 className="text-xl font-bold hover:text-primary transition-colors line-clamp-2 flex-grow">
                     <Link href={`/articles/${article._id}`}>
                       {article.title}
                     </Link>

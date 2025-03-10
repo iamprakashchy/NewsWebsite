@@ -50,16 +50,8 @@ export const NAVIGATION_MENUS = [
     href: "/news",
   },
   {
-    name: "Politics",
-    href: "/politics",
-  },
-  {
     name: "FAQs",
     href: "/faqs",
-  },
-  {
-    name: "Prime Ministers",
-    href: "/prime-ministers",
   },
   {
     name: "Contact Us",

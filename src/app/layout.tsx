@@ -33,16 +33,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAdminPath = typeof window !== 'undefined' && window.location.pathname.startsWith('/admin');
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${jost.variable} ${poppins.variable} antialiased`}>
         <ThemeProvider attribute="class">
-          <div className="fixed top-0 w-full z-50 flex flex-col">
-            <TopNavbar />
-            <Navbar />
-          </div>
+          {!isAdminPath && (
+            <div className="fixed top-0 w-full z-50 flex flex-col">
+              <TopNavbar />
+              <Navbar />
+            </div>
+          )}
           <main className="pt-36 sm:pt-32">{children}</main>
-          <Footer />
+          {!isAdminPath && <Footer />}
         </ThemeProvider>
       </body>
     </html>
