@@ -1,10 +1,7 @@
 import { Inter, Jost, Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/ui/Navbar/Navbar";
 import { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
-import TopNavbar from "@/components/ui/Navbar/TopNavbar";
-import { Footer } from "@/components/ui/Footer/Footer";
+import MainLayoutWrapper from "@/components/ui/Layout/MainLayoutWrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,27 +24,20 @@ export const metadata: Metadata = {
   description: "News Archive",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isAdminPath = typeof window !== 'undefined' && window.location.pathname.startsWith('/admin');
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jost.variable} ${poppins.variable} antialiased`}>
-        <ThemeProvider attribute="class">
-          {!isAdminPath && (
-            <div className="fixed top-0 w-full z-50 flex flex-col">
-              <TopNavbar />
-              <Navbar />
-            </div>
-          )}
-          <main className="pt-36 sm:pt-32">{children}</main>
-          {!isAdminPath && <Footer />}
-        </ThemeProvider>
-      </body>
+      <MainLayoutWrapper
+        interClass={inter.variable}
+        jostClass={jost.variable}
+        poppinsClass={poppins.variable}
+      >
+        {children}
+      </MainLayoutWrapper>
     </html>
   );
 }

@@ -13,9 +13,12 @@ export default function ContentManagementPage() {
   return (
     <div className="space-y-6 p-4 sm:p-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground mb-2">Content Management</h1>
+        <h1 className="text-2xl font-bold text-foreground mb-2">
+          Content Management
+        </h1>
         <p className="text-muted-foreground">
-          Manage your categories, keywords, and source URLs for content scraping.
+          Manage your categories, keywords, and source URLs for content
+          scraping.
         </p>
       </div>
 
