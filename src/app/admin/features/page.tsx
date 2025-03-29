@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CategoryManager from "@/components/Admin/CategoryManager";
 import KeywordManager from "@/components/Admin/KeywordManager";
 import UrlManager from "@/components/Admin/UrlManager";
-import { Tag, Globe, Database } from "lucide-react";
+import { Globe, Database } from "lucide-react";
 
 export default function ContentManagementPage() {
   const [activeTab, setActiveTab] = useState("categories");
@@ -28,15 +28,15 @@ export default function ContentManagementPage() {
         onValueChange={setActiveTab}
         className="w-full"
       >
-        <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="categories" className="flex items-center gap-2">
             <Database className="w-4 h-4" />
-            <span className="hidden sm:inline">Categories</span>
+            <span className="hidden sm:inline">Categories & Keywords</span>
           </TabsTrigger>
-          <TabsTrigger value="keywords" className="flex items-center gap-2">
+          {/* <TabsTrigger value="keywords" className="flex items-center gap-2">
             <Tag className="w-4 h-4" />
             <span className="hidden sm:inline">Keywords</span>
-          </TabsTrigger>
+          </TabsTrigger> */}
           <TabsTrigger value="urls" className="flex items-center gap-2">
             <Globe className="w-4 h-4" />
             <span className="hidden sm:inline">URLs</span>

@@ -7,8 +7,16 @@ import { useState, useEffect } from "react";
 interface CategoryModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (category: { name: string; isActive: boolean }) => void;
-  initialData?: { name: string; isActive: boolean };
+  onSubmit: (category: {
+    categoryName: string;
+    isActive: boolean;
+    keywords: string[];
+  }) => void;
+  initialData?: {
+    categoryName: string;
+    isActive: boolean;
+    keywords: string[];
+  };
 }
 
 export default function CategoryModal({
@@ -18,23 +26,56 @@ export default function CategoryModal({
   initialData,
 }: CategoryModalProps) {
   const [formData, setFormData] = useState<{
-    name: string;
+    categoryName: string;
     isActive: boolean;
+    keywords: string[];
   }>({
-    name: "",
+    categoryName: "",
     isActive: true,
+    keywords: [],
   });
+
+  const [keywordInput, setKeywordInput] = useState("");
 
   useEffect(() => {
     if (initialData) {
       setFormData({
-        name: initialData.name,
-        isActive: initialData.isActive
+        categoryName: initialData.categoryName,
+        isActive: initialData.isActive,
+        keywords: initialData.keywords || [],
       });
     } else {
-      setFormData({ name: "", isActive: true });
+      setFormData({
+        categoryName: "",
+        isActive: true,
+        keywords: [],
+      });
     }
   }, [initialData]);
+
+  const handleAddKeyword = () => {
+    if (keywordInput.trim()) {
+      setFormData({
+        ...formData,
+        keywords: [...formData.keywords, keywordInput.trim()],
+      });
+      setKeywordInput("");
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleAddKeyword();
+    }
+  };
+
+  const handleRemoveKeyword = (index: number) => {
+    setFormData({
+      ...formData,
+      keywords: formData.keywords.filter((_, i) => i !== index),
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,17 +107,61 @@ export default function CategoryModal({
               <label className="block text-sm font-medium mb-1">Name</label>
               <input
                 type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                value={formData.categoryName}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    categoryName: e.target.value,
+                  })
+                }
                 className="w-full p-2 border rounded-md bg-background"
                 required
               />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Keywords</label>
+              <div className="flex gap-2 mb-2">
+                <input
+                  type="text"
+                  value={keywordInput}
+                  onChange={(e) => setKeywordInput(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  className="flex-1 p-2 border rounded-md bg-background"
+                  placeholder="Add keyword"
+                />
+                <Button
+                  type="button"
+                  onClick={handleAddKeyword}
+                  variant="primary"
+                >
+                  Add
+                </Button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {formData.keywords.map((keyword, index) => (
+                  <span
+                    key={index}
+                    className="bg-secondary text-secondary-foreground px-2 py-1 rounded-md flex items-center gap-1"
+                  >
+                    {keyword}
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveKeyword(index)}
+                      className="hover:text-destructive"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+              </div>
             </div>
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
                 checked={formData.isActive}
-                onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                onChange={(e) =>
+                  setFormData({ ...formData, isActive: e.target.checked })
+                }
                 className="rounded border-border text-primary focus:ring-ring"
               />
               <label className="text-sm font-medium">Active</label>
@@ -95,4 +180,4 @@ export default function CategoryModal({
       </div>
     </div>
   );
-} 
+}

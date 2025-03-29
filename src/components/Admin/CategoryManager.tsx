@@ -8,9 +8,10 @@ import CategoryModal from "./CategoryModal";
 
 interface Category {
   _id?: string;
-  name: string;
+  categoryName: string;
   description?: string;
   isActive: boolean;
+  keywords: string[];
 }
 
 export default function CategoryManager() {
@@ -30,12 +31,12 @@ export default function CategoryManager() {
       const data = await response.json();
       setCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error("Error fetching categories:", error);
       toast.error("Failed to fetch categories");
     }
   };
 
-  const handleCreate = async (categoryData: Omit<Category, '_id'>) => {
+  const handleCreate = async (categoryData: Omit<Category, "_id">) => {
     try {
       const response = await fetch("/api/categories", {
         method: "POST",
@@ -56,7 +57,7 @@ export default function CategoryManager() {
     }
   };
 
-  const handleUpdate = async (categoryData: Omit<Category, '_id'>) => {
+  const handleUpdate = async (categoryData: Omit<Category, "_id">) => {
     if (!editingCategory?._id) return;
 
     try {
@@ -69,9 +70,13 @@ export default function CategoryManager() {
       if (!response.ok) throw new Error("Failed to update category");
 
       const updatedCategory = await response.json();
-      setCategories(categories.map(cat =>
-        cat._id === editingCategory._id ? { ...updatedCategory, _id: editingCategory._id } : cat
-      ));
+      setCategories(
+        categories.map((cat) =>
+          cat._id === editingCategory._id
+            ? { ...updatedCategory, _id: editingCategory._id }
+            : cat
+        )
+      );
       toast.success("Category updated successfully");
       setIsModalOpen(false);
       setEditingCategory(null);
@@ -82,7 +87,8 @@ export default function CategoryManager() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this category?")) return;
+    if (!window.confirm("Are you sure you want to delete this category?"))
+      return;
 
     try {
       const response = await fetch(`/api/categories/${id}`, {
@@ -91,7 +97,7 @@ export default function CategoryManager() {
 
       if (!response.ok) throw new Error("Failed to delete category");
 
-      setCategories(categories.filter(cat => cat._id !== id));
+      setCategories(categories.filter((cat) => cat._id !== id));
       toast.success("Category deleted successfully");
     } catch (error) {
       toast.error("Failed to delete category");
@@ -100,9 +106,14 @@ export default function CategoryManager() {
   };
 
   // Filter categories based on search term
-  const filteredCategories = categories.filter(category =>
-    (category.name?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
-    (category.description?.toLowerCase() || '').includes(searchTerm.toLowerCase())
+  const filteredCategories = categories.filter(
+    (category) =>
+      (category.categoryName?.toLowerCase() || "").includes(
+        searchTerm.toLowerCase()
+      ) ||
+      (category.description?.toLowerCase() || "").includes(
+        searchTerm.toLowerCase()
+      )
   );
 
   return (
@@ -135,37 +146,67 @@ export default function CategoryManager() {
             key={category._id}
             className="p-4 bg-card text-card-foreground hover:shadow-md transition-shadow duration-200"
           >
-            <div className="flex justify-between items-start">
-              <div className="space-y-1">
-                <h3 className="font-semibold text-foreground">{category.name}</h3>
-                {category.description && (
-                  <p className="text-sm text-muted-foreground">{category.description}</p>
-                )}
-                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${category.isActive
-                  ? 'bg-success/10 text-success'
-                  : 'bg-destructive/10 text-destructive'
-                  }`}>
-                  {category.isActive ? 'Active' : 'Inactive'}
-                </span>
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-between items-start">
+                <div className="space-y-1">
+                  <h3 className="font-semibold text-foreground text-lg">
+                    {category.categoryName}
+                  </h3>
+                  {category.description && (
+                    <p className="text-sm text-muted-foreground">
+                      {category.description}
+                    </p>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      setEditingCategory(category);
+                      setIsModalOpen(true);
+                    }}
+                  >
+                    <Pencil className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleDelete(category._id!)}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => {
-                    setEditingCategory(category);
-                    setIsModalOpen(true);
-                  }}
+
+              {category.keywords && category.keywords.length > 0 && (
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-muted-foreground">
+                    Keywords:
+                  </label>
+                  <div className="flex flex-wrap gap-1.5">
+                    {category.keywords.map((keyword, index) => (
+                      <span
+                        key={index}
+                        className="bg-primary/10 text-primary px-2 py-0.5 rounded-full text-xs font-medium"
+                      >
+                        {keyword}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex justify-between items-center pt-2 border-t border-border">
+                <span
+                  className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                    category.isActive
+                      ? "bg-success/10 text-success"
+                      : "bg-destructive/10 text-destructive"
+                  }`}
                 >
-                  <Pencil className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => handleDelete(category._id!)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+                  {category.isActive ? "Active" : "Inactive"}
+                </span>
               </div>
             </div>
           </Card>

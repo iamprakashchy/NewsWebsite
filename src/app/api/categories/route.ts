@@ -3,7 +3,8 @@ import clientPromise from "@/lib/mongodb";
 import { z } from "zod";
 
 const categorySchema = z.object({
-  name: z.string().min(1, "Category name is required"),
+  categoryName: z.string().min(1, "Category name is required"),
+  keywords: z.array(z.string()).min(1, "At least one keyword is required"),
   isActive: z.boolean(),
 });
 
@@ -12,7 +13,8 @@ export async function GET() {
     const client = await clientPromise;
     const db = client.db("newsarchives");
 
-    const categories = await db.collection("categories")
+    const categories = await db
+      .collection("categories")
       .find({})
       .sort({ createdAt: -1 })
       .toArray();
