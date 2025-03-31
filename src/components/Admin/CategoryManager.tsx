@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/Input";
-import { Plus, Pencil, Trash2, Search } from "lucide-react";
+import { Plus, Pencil, Trash2, Search, Copy } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { toast } from "react-hot-toast";
 import CategoryModal from "./CategoryModal";
@@ -9,7 +9,6 @@ import CategoryModal from "./CategoryModal";
 interface Category {
   _id?: string;
   categoryName: string;
-  description?: string;
   isActive: boolean;
   keywords: string[];
 }
@@ -20,7 +19,6 @@ export default function CategoryManager() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
 
-  // Fetch categories
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -105,26 +103,48 @@ export default function CategoryManager() {
     }
   };
 
-  // Filter categories based on search term
+  const handleReplicate = async (category: Category) => {
+    try {
+      const replicaData = {
+        categoryName: `${category.categoryName} (Copy)`,
+        keywords: [...category.keywords],
+        isActive: category.isActive,
+      };
+
+      const response = await fetch("/api/categories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(replicaData),
+      });
+
+      if (!response.ok) throw new Error("Failed to replicate category");
+
+      const newCategory = await response.json();
+      setCategories([...categories, newCategory]);
+      toast.success("Category replicated successfully");
+    } catch (error) {
+      toast.error("Failed to replicate category");
+      console.error(error);
+    }
+  };
+
   const filteredCategories = categories.filter(
     (category) =>
       (category.categoryName?.toLowerCase() || "").includes(
-        searchTerm.toLowerCase()
-      ) ||
-      (category.description?.toLowerCase() || "").includes(
         searchTerm.toLowerCase()
       )
   );
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+    <div className="container py-6">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+        <div className="relative w-full sm:w-80">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
           <Input
             type="text"
             placeholder="Search categories..."
-            className="pl-10 bg-background border-border focus:ring-ring"
+            className="pl-10 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -134,31 +154,38 @@ export default function CategoryManager() {
             setEditingCategory(null);
             setIsModalOpen(true);
           }}
-          leftIcon={<Plus className="h-4 w-4" />}
+          leftIcon={<Plus className="h-5 w-5" />}
+          className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg shadow-md transition-all duration-300 flex items-center gap-2"
         >
-          Add Category
+          <span>Add Category</span>
         </Button>
       </div>
 
+      {/* Categories Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredCategories.map((category) => (
           <Card
             key={category._id}
-            className="p-4 bg-card text-card-foreground hover:shadow-md transition-shadow duration-200"
+            className="p-5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
+              {/* Header */}
               <div className="flex justify-between items-start">
-                <div className="space-y-1">
-                  <h3 className="font-semibold text-foreground text-lg">
+                <div className="space-y-2">
+                  <h3 className="font-bold text-xl text-gray-900 dark:text-white line-clamp-1">
                     {category.categoryName}
                   </h3>
-                  {category.description && (
-                    <p className="text-sm text-muted-foreground">
-                      {category.description}
-                    </p>
-                  )}
                 </div>
                 <div className="flex gap-2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleReplicate(category)}
+                    className="text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                    title="Create copy"
+                  >
+                    <Copy className="h-5 w-5" />
+                  </Button>
                   <Button
                     variant="ghost"
                     size="icon"
@@ -166,29 +193,32 @@ export default function CategoryManager() {
                       setEditingCategory(category);
                       setIsModalOpen(true);
                     }}
+                    className="text-gray-500 hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200"
                   >
-                    <Pencil className="h-4 w-4" />
+                    <Pencil className="h-5 w-5" />
                   </Button>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => handleDelete(category._id!)}
+                    className="text-gray-500 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-5 w-5" />
                   </Button>
                 </div>
               </div>
 
+              {/* Keywords */}
               {category.keywords && category.keywords.length > 0 && (
-                <div className="space-y-1">
-                  <label className="text-xs font-medium text-muted-foreground">
-                    Keywords:
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold text-foreground dark:text-gray-400 uppercase tracking-wide">
+                    Keywords
                   </label>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2">
                     {category.keywords.map((keyword, index) => (
                       <span
                         key={index}
-                        className="bg-primary/10 text-primary px-2 py-0.5 rounded-full text-xs font-medium"
+                        className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 text-blue-800 dark:text-blue-200 rounded-full text-xs font-medium shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105"
                       >
                         {keyword}
                       </span>
@@ -197,13 +227,13 @@ export default function CategoryManager() {
                 </div>
               )}
 
-              <div className="flex justify-between items-center pt-2 border-t border-border">
+              {/* Status */}
+              <div className="flex justify-between items-center pt-3 border-t border-gray-200 dark:border-gray-700">
                 <span
-                  className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
-                    category.isActive
-                      ? "bg-success/10 text-success"
-                      : "bg-destructive/10 text-destructive"
-                  }`}
+                  className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium shadow-sm ${category.isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-destructive text-destructive-foreground"
+                    }`}
                 >
                   {category.isActive ? "Active" : "Inactive"}
                 </span>
@@ -213,6 +243,16 @@ export default function CategoryManager() {
         ))}
       </div>
 
+      {/* Empty State */}
+      {filteredCategories.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
+            No categories found. Create one to get started!
+          </p>
+        </div>
+      )}
+
+      {/* Modal */}
       {isModalOpen && (
         <CategoryModal
           isOpen={isModalOpen}

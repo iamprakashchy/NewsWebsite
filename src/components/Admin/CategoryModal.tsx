@@ -85,8 +85,8 @@ export default function CategoryModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-background p-6 rounded-lg shadow-lg max-w-md w-full">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-background p-6 rounded-lg shadow-lg max-w-md w-full max-h-[90vh] flex flex-col">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">
             {initialData ? "Edit Category" : "Create Category"}
@@ -101,8 +101,8 @@ export default function CategoryModal({
           </Button>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="space-y-4">
+        <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
+          <div className="space-y-4 flex-1 overflow-y-auto pr-2">
             <div>
               <label className="block text-sm font-medium mb-1">Name</label>
               <input
@@ -137,17 +137,17 @@ export default function CategoryModal({
                   Add
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 max-h-[200px] overflow-y-auto border rounded-md p-2 bg-muted/30">
                 {formData.keywords.map((keyword, index) => (
                   <span
                     key={index}
-                    className="bg-secondary text-secondary-foreground px-2 py-1 rounded-md flex items-center gap-1"
+                    className="bg-secondary text-secondary-foreground px-2 py-1 rounded-md flex items-center gap-1 font-light"
                   >
                     {keyword}
                     <button
                       type="button"
                       onClick={() => handleRemoveKeyword(index)}
-                      className="hover:text-destructive"
+                      className="hover:text-destructive transition-colors"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -168,7 +168,7 @@ export default function CategoryModal({
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 mt-6">
+          <div className="flex justify-end gap-2 mt-6 pt-4 border-t">
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
