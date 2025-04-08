@@ -9,7 +9,7 @@ import {
   MessageCircle,
   Facebook,
   Twitter,
-  Linkedin
+  Linkedin,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -32,7 +32,7 @@ export default function ArticleActions({
   articleId,
   title,
   slug,
-  className
+  className,
 }: ArticleActionsProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -51,19 +51,25 @@ export default function ArticleActions({
       };
 
       if (platform) {
-        let shareUrl = '';
+        let shareUrl = "";
         switch (platform) {
-          case 'facebook':
-            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+          case "facebook":
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+              shareData.url
+            )}`;
             break;
-          case 'twitter':
-            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.title)}&url=${encodeURIComponent(shareData.url)}`;
+          case "twitter":
+            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              shareData.title
+            )}&url=${encodeURIComponent(shareData.url)}`;
             break;
-          case 'linkedin':
-            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareData.url)}`;
+          case "linkedin":
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+              shareData.url
+            )}`;
             break;
         }
-        window.open(shareUrl, '_blank', 'width=600,height=400');
+        window.open(shareUrl, "_blank", "width=600,height=400");
         toast.success(`Shared on ${platform}`);
       } else if (navigator.share) {
         await navigator.share(shareData);
@@ -80,15 +86,15 @@ export default function ArticleActions({
 
   const handleSave = async () => {
     try {
-      const response = await fetch('/api/articles/bookmark', {
-        method: 'POST',
+      const response = await fetch("/api/articles/bookmark", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ articleId, action: isSaved ? 'remove' : 'add' }),
+        body: JSON.stringify({ articleId, action: isSaved ? "remove" : "add" }),
       });
 
-      if (!response.ok) throw new Error('Failed to update bookmark');
+      if (!response.ok) throw new Error("Failed to update bookmark");
 
       setIsSaved(!isSaved);
       toast.success(
@@ -104,18 +110,21 @@ export default function ArticleActions({
 
   const handleLike = async () => {
     try {
-      const response = await fetch('/api/articles/like', {
-        method: 'POST',
+      const response = await fetch("/api/articles/like", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ articleId, action: isLiked ? 'unlike' : 'like' }),
+        body: JSON.stringify({
+          articleId,
+          action: isLiked ? "unlike" : "like",
+        }),
       });
 
-      if (!response.ok) throw new Error('Failed to update like');
+      if (!response.ok) throw new Error("Failed to update like");
 
       setIsLiked(!isLiked);
-      setLikeCount(prev => isLiked ? prev - 1 : prev + 1);
+      setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
       toast.success(isLiked ? "Like removed" : "Article liked!");
     } catch (error) {
       console.error("Error liking article:", error);
@@ -124,29 +133,33 @@ export default function ArticleActions({
   };
 
   return (
-    <div className={cn(
-      "flex items-center justify-between py-6 border-y border-border",
-      className
-    )}>
+    <div
+      className={cn(
+        "flex items-center justify-between py-6 border-y border-border",
+        className
+      )}
+    >
       <div className="flex items-center gap-4">
         <Button
           variant={isLiked ? "primary" : "outline"}
           size="sm"
           className="flex items-center gap-2"
           onClick={handleLike}
-          leftIcon={<ThumbsUp className={`w-4 h-4 ${isLiked ? 'text-white' : ''}`} />}
+          leftIcon={
+            <ThumbsUp className={`w-4 h-4 ${isLiked ? "text-white" : ""}`} />
+          }
         >
-          <span>{likeCount > 0 ? likeCount : 'Like'}</span>
+          <span>{likeCount > 0 ? likeCount : "Like"}</span>
         </Button>
 
         <Button
           variant="outline"
           size="sm"
           className="flex items-center gap-2"
-          onClick={() => { }}
+          onClick={() => {}}
           leftIcon={<MessageCircle className="w-4 h-4" />}
         >
-          <span>{commentCount > 0 ? commentCount : 'Comment'}</span>
+          <span>{commentCount > 0 ? commentCount : "Comment"}</span>
         </Button>
       </div>
 
@@ -163,15 +176,15 @@ export default function ArticleActions({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem onClick={() => handleShare('facebook')}>
+            <DropdownMenuItem onClick={() => handleShare("facebook")}>
               <Facebook className="w-4 h-4 mr-2" />
               Facebook
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleShare('twitter')}>
+            <DropdownMenuItem onClick={() => handleShare("twitter")}>
               <Twitter className="w-4 h-4 mr-2" />
               Twitter
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleShare('linkedin')}>
+            <DropdownMenuItem onClick={() => handleShare("linkedin")}>
               <Linkedin className="w-4 h-4 mr-2" />
               LinkedIn
             </DropdownMenuItem>
@@ -187,11 +200,17 @@ export default function ArticleActions({
           size="sm"
           className="flex items-center gap-2"
           onClick={handleSave}
-          leftIcon={isSaved ? <BookmarkCheck className="w-4 h-4 text-primary" /> : <Bookmark className="w-4 h-4" />}
+          leftIcon={
+            isSaved ? (
+              <BookmarkCheck className="w-4 h-4 text-primary" />
+            ) : (
+              <Bookmark className="w-4 h-4" />
+            )
+          }
         >
           {isSaved ? "Saved" : "Save"}
         </Button>
       </div>
     </div>
   );
-} 
+}

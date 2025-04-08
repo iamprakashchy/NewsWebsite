@@ -21,8 +21,8 @@ export default function BlogSection({ posts }: AllBlogPostsProps) {
     >
       <div className="text-center mb-16">
         <h2 className="text-3xl font-bold text-center tracking-tight sm:text-4xl lg:text-5xl mb-4">
-          Our Blog&nbsp;
-          <span className="text-primary mt-2">Insights</span>
+          Insider&nbsp;
+          <span className="text-primary mt-2">News</span>
         </h2>
         <p className="mt-2 max-w-3xl mx-auto text-base font-light lg:text-lg text-muted-foreground text-center mb-8">
           Discover industry insights, technical deep-dives, and expert
@@ -56,7 +56,7 @@ export default function BlogSection({ posts }: AllBlogPostsProps) {
                 size="lg"
                 rightIcon={<IoArrowForwardCircleOutline className="size-6" />}
               >
-                View All Posts
+                View All
               </Button>
             </Link>
           </div>
