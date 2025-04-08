@@ -2,7 +2,16 @@ import TrendingArea from "@/components/Home/TrendingArea";
 import StorySection from "@/components/Home/StorySection";
 import Hero from "@/components/Home/Hero";
 import { CategorySection } from "@/components/ui/category-section";
-export default function Home() {
+import { getBlogPosts } from "@/lib/blog/api";
+import { BlogPost } from "@/lib/blog/type";
+import BlogSection from "@/components/Home/BlogSection";
+export default async function Home() {
+  let blogPosts: BlogPost[] = [];
+  try {
+    blogPosts = await getBlogPosts();
+  } catch (error) {
+    console.error("Failed to fetch blog posts:", error);
+  }
   return (
     <section>
       <Hero />
@@ -36,6 +45,7 @@ export default function Home() {
           />
         </div>
       </div>
+      <BlogSection posts={blogPosts} />
     </section>
   );
 }

@@ -163,6 +163,13 @@ export function DashboardSidebar() {
               isActive={pathname.startsWith("/admin/features")}
               isCollapsed={!isOpen}
             />
+            <NavItem
+              title="Blogs"
+              href="/admin/dashboard/blogcms"
+              icon={FileText}
+              isActive={pathname.startsWith("/admin/dashboard/blogcms")}
+              isCollapsed={!isOpen}
+            />
           </ul>
           <div className="my-2 border-t" />
           <ul className="space-y-1">
