@@ -4,7 +4,7 @@ import { useSelectedLayoutSegments } from "next/navigation";
 import { ThemeProvider } from "next-themes";
 import TopNavbar from "@/components/ui/Navbar/TopNavbar";
 import Navbar from "@/components/ui/Navbar/Navbar";
-import { Footer } from "@/components/ui/Footer/Footer";
+import Footer from "@/components/ui/Footer/Footer";
 
 interface MainLayoutWrapperProps {
   children: React.ReactNode;
