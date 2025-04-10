@@ -10,6 +10,7 @@ import { throttle } from "lodash";
 import { cn } from "@/lib/utils";
 import DarkModeToggle from "../DarkModeToggle";
 import { SearchModal } from "../search-modal";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -66,10 +67,24 @@ export default function Navbar() {
 }
 
 const Logo = () => (
-  <Link href="/" className="block text-2xl font-bold">
-    <span className="text-2xl xl:text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent whitespace-nowrap">
-      News Archive
-    </span>
+  <Link
+    href="/"
+    className="text-2xl xl:text-3xl font-bold whitespace-nowrap text-primary font-rajdhani w-full h-auto max-w-[140px] sm:max-w-[180px] xl:max-w-[180px]"
+  >
+    <Image
+      src="/images/logo-whitebg.png"
+      alt="Hackintown"
+      width={180}
+      height={180}
+      className="w-full h-full dark:hidden"
+    />
+    <Image
+      src="/images/logo-blackbg.png"
+      alt="Hackintown"
+      width={180}
+      height={180}
+      className="w-full h-full dark:block hidden"
+    />
   </Link>
 );
 
